@@ -36,3 +36,73 @@ while(totalEmpHrs<= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_WORKING_DAYS){
 let empWage=calcDailyWage(totalEmpHrs);
 console.log( "empHours = " +totalEmpHrs+ " employee Wage = " +empWage + " total days " +totalWorkingDays );
 console.log("empDailyWageArr = "+empDailyWageArr)
+
+
+//uc7 for each nd reduce method
+
+let totEmpWage =0;
+function sum(dailyWage){
+    totEmpWage +=dailyWage;
+}
+empDailyWageArr.forEach(sum);
+console.log("uc7 - totalDays = " +totalWorkingDays + " , total hrs "+totalEmpHrs + " , empWage: " +totEmpWage)
+
+function totalWages(totalWage,dailyWage){
+    return totalWage+dailyWage;
+}
+console.log("uc7 = " +empDailyWageArr.reduce(totalWages,0));
+
+//uc7b
+
+let dailyCntr =0;
+function mapDayWithWage(dailyWage){
+    dailyCntr ++;
+    return dailyCntr + " = " +dailyWage;
+}
+let mapDayWithWageArr=empDailyWageArr.map(mapDayWithWage);
+console.log(" uc7b daily wage map ")
+console.log(mapDayWithWageArr);
+
+// uc7c
+function fulltimeWage(dailyWage){
+    return dailyWage.includes("160");
+}
+let fullDayWageArr = mapDayWithWageArr.filter(fulltimeWage);
+console.log(" uc7c = ");
+console.log(fullDayWageArr);
+
+// uc7d
+
+function findFulltimeWage(dailyWage){
+    return dailyWage.includes("160");
+}
+
+let findFulltimeWageArr=mapDayWithWageArr.find(findFulltimeWage);
+console.log("uc7d = ");
+console.log(findFulltimeWageArr);
+
+//uc7e
+
+function isAnyPartTimeWage(dailyWage){
+    return dailyWage.includes("60");
+}
+let isAnyPartTimeWageArr = mapDayWithWageArr.some(isAnyPartTimeWage);
+console.log("uc7e = ");
+console.log(isAnyPartTimeWageArr)
+
+// uc7f
+
+function isAnyFullTimeWage(dailyWageg){
+    return dailyWageg.includes("160")
+}
+console.log("uc7f = ");
+console.log(mapDayWithWageArr.some(isAnyFullTimeWage));
+
+//uc7g
+
+function totalDaysWorked(numOfDays, dailyWage){
+    if(dailyWage > 0) return numOfDays+1;
+    return numOfDays
+}
+console.log("uc7g = ");
+console.log(empDailyWageArr.reduce(totalDaysWorked,0));
