@@ -11,18 +11,28 @@ function getWorkingHours(empCheck){
 switch(empCheck){
     case IS_PART_TIME:
         return PART_TIME_HOURS;
+       
     case IS_FULL_TIME:
        return FULL_TIME_HOURS;
+      
     default:
       return 0;
     }
 }
+
+function calcDailyWage(empHrs){
+    return empHrs*WAGE_PER_HOURS;
+}
 let totalWorkingDays=0;
 let totalEmpHrs=0;
+let empDailyWageArr=new Array();
 while(totalEmpHrs<= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_WORKING_DAYS){
     totalWorkingDays++;
     let empCheck=Math.floor(Math.random()*10)%3;
-    totalEmpHrs+=getWorkingHours(empCheck);
+    let empHrs =getWorkingHours(empCheck);
+    totalEmpHrs = empHrs + totalEmpHrs;
+    empDailyWageArr.push(calcDailyWage(empHrs));
 }
-let empWage=totalEmpHrs*WAGE_PER_HOURS;
+let empWage=calcDailyWage(totalEmpHrs);
 console.log( "empHours = " +totalEmpHrs+ " employee Wage = " +empWage + " total days " +totalWorkingDays );
+console.log("empDailyWageArr = "+empDailyWageArr)
