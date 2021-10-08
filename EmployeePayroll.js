@@ -57,7 +57,7 @@ console.log("uc7 = " +empDailyWageArr.reduce(totalWages,0));
 let dailyCntr =0;
 function mapDayWithWage(dailyWage){
     dailyCntr ++;
-    return dailyCntr + " = " +dailyWage;
+    return dailyCntr + " = " +dailyWage +" , ";
 }
 let mapDayWithWageArr=empDailyWageArr.map(mapDayWithWage);
 console.log(" uc7b daily wage map ")
@@ -106,3 +106,9 @@ function totalDaysWorked(numOfDays, dailyWage){
 }
 console.log("uc7g = ");
 console.log(empDailyWageArr.reduce(totalDaysWorked,0));
+
+// uc8
+
+console.log(" uc8 - empWage map totalhrs  " +
+            Array.from(mapDayWithWageArr.values()).reduce(totalWages,0) +" totalEmpWage = " +totEmpWage);
+            
