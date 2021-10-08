@@ -48,110 +48,33 @@ console.log( "empHours = " +totalEmpHrs+ " employee Wage = " +empWage + " total 
 console.log("empDailyWageArr = "+empDailyWageArr)
 
 
-//uc7 for each nd reduce method
-
-let totEmpWage =0;
-function sum(dailyWage){
-    totEmpWage +=dailyWage;
-}
-empDailyWageArr.forEach(sum);
-console.log("uc7 - totalDays = " +totalWorkingDays + " , total hrs "+totalEmpHrs + " , empWage: " +totEmpWage)
-
-function totalWages(totalWage,dailyWage){
-    return totalWage+dailyWage;
-}
-console.log("uc7 = " +empDailyWageArr.reduce(totalWages,0));
-
-//uc7b
-
-let dailyCntr =0;
-function mapDayWithWage(dailyWage){
-    dailyCntr ++;
-    return dailyCntr + " = " +dailyWage +" , ";
-}
-let mapDayWithWageArr=empDailyWageArr.map(mapDayWithWage);
-console.log(" uc7b daily wage map ")
-console.log(mapDayWithWageArr);
-
-// uc7c
-function fulltimeWage(dailyWage){
-    return dailyWage.includes("160");
-}
-let fullDayWageArr = mapDayWithWageArr.filter(fulltimeWage);
-console.log(" uc7c = ");
-console.log(fullDayWageArr);
-
-// uc7d
-
-function findFulltimeWage(dailyWage){
-    return dailyWage.includes("160");
-}
-
-let findFulltimeWageArr=mapDayWithWageArr.find(findFulltimeWage);
-console.log("uc7d = ");
-console.log(findFulltimeWageArr);
-
-//uc7e
-
-function isAnyPartTimeWage(dailyWage){
-    return dailyWage.includes("60");
-}
-let isAnyPartTimeWageArr = mapDayWithWageArr.some(isAnyPartTimeWage);
-console.log("uc7e = ");
-console.log(isAnyPartTimeWageArr)
-
-// uc7f
-
-function isAnyFullTimeWage(dailyWageg){
-    return dailyWageg.includes("160")
-}
-console.log("uc7f = ");
-console.log(mapDayWithWageArr.some(isAnyFullTimeWage));
-
-//uc7g
-
-function totalDaysWorked(numOfDays, dailyWage){
-    if(dailyWage > 0) return numOfDays+1;
-    return numOfDays
-}
-console.log("uc7g = ");
-console.log(empDailyWageArr.reduce(totalDaysWorked,0));
-
-// uc8
-
-console.log(" uc8 - empWage map totalhrs  " +
-            Array.from(empDailyWageMap.values()).reduce(totalWages,0) );
-
-//uc9 arrow function 
-
-const findTotal = (totalVal ,dailyVal) => {
-    return totalVal+dailyVal;
-}
-let totalhours = Array.from(empDailyHrsMap.values())
-    .filter(dailyHours => dailyHours > 0)
-    .reduce(findTotal,0);
-    
-let totalsalary = (empDailyWageArr
-    .filter(dailyWage => dailyWage > 0))
-    .reduce(findTotal,0);
-
-    console.log("uc9 totalHrs = " +totalhours+ " totalWage " +totalsalary )
-
-    //uc9b
-
-    let nonWorkingdays = new Array();
-    let partWorkingDays = new Array();
-    let fullWorkingDays = new Array();
-
-    empDailyHrsMap.forEach((value,key,map) => {
-        if(value == 8) fullWorkingDays.push(key);
-        if(value == 4) partWorkingDays.push(key);
-        else nonWorkingdays.push(key);
-    });
-    console.log("fullWorkingDays = " +fullWorkingDays)
-    console.log("partWorkingDays = " +partWorkingDays)
-    console.log(" nonWorkingdays = " +nonWorkingdays)
-    
 //uc10 object
 
 console.log("uc10 : " +empDailyHrsAndWageArr)
+
+//uc11a
+
+let totalWages = empDailyHrsAndWageArr
+                .filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0)
+.reduce((totalWage , dailyHrsAndWage) => totalWage += dailyHrsAndWage.dailyWage,0);
+
+let totalHours = empDailyHrsAndWageArr
+                .filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours > 0)
+                .reduce((totalHours,dailyHrsAndWage)=> totalHours += dailyHrsAndWage.dailyHours,0);
+console.log("uc11A totalHours :  " +totalHours+ " , total wages : " +totalWages)
+
+//uc11b
+
+ empDailyHrsAndWageArr
+.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 8)
+.forEach(dailyHrsAndWage => console.log(dailyHrsAndWage.toString()));
+
+let partWorkingDaysStrArr = empDailyHrsAndWageArr
+.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 4)
+.map(dailyHrsAndWage => dailyHrsAndWage.toString());
+console.log("uc11c partWorkingDays : " +partWorkingDaysStrArr)
+
+let nonWorkingDays = empDailyHrsAndWageArr
+.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 0)
+.map(dailyHrsAndWage => dailyHrsAndWage.dayNum);
+console.log("uc11d nonWorkingdayNum = " +nonWorkingDays)
